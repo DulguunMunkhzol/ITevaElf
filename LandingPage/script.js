@@ -1,6 +1,5 @@
 //mutable Variable
 let books = [];
-displayBooks();
 
 
 //  DOM (Document Object Model) manipulation
@@ -32,14 +31,13 @@ bookForm.addEventListener('submit', function(e){
     books.push(book);
 
     bookForm.reset();
-    alert(JSON.stringify(books))
     displayBooks();
 })
 
 function displayBooks(){
     bookContainer.innerHTML = "";
 
-    if(books.length===""){
+    if(books.length===0){
         bookContainer.innerHTML = '<p>No books yet, Add your First Book!</p>';
         return;
     }
@@ -52,7 +50,20 @@ function displayBooks(){
         <td>${book.author}</td>
         <td>${book.publishDate}</td>
         <td>${book.genre}</td>
+        <td><button onclick = "deleteBook(${book.id})">Delete</button></td>
+        <td><button onclick="editBook(${book.id})">Edit</button></td>
         `;
         bookContainer.appendChild(bookRow);
     })
 }
+
+function deleteBook(id){
+    books = books.filter( book => book.id !== id)
+    displayBooks();
+}
+
+function editBook(id){
+    alert(id)
+}
+
+displayBooks();
