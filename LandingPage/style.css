@@ -1,0 +1,211 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-boxß;    
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/*ID specific*/
+#features{
+    padding:1rem 1rem;
+}
+
+#header{
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+#book-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#book-form input{
+    flex:1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px ;
+}
+
+/*class styles*/
+
+.nav-bar{
+    float: right;
+    background-color:cadetblue;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    
+    button{
+        background-color:rgb(195, 226, 255);
+        border: 0px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        padding: 5px 20px;
+        border-radius: 3px;
+        margin: 0 2px;
+
+    }
+    button:hover{
+        background-color: rgba(149, 255, 125, 0.717);
+    }
+}
+
+.feature-card{
+    background:#f4f4f4;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin:1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 320px auto;
+
+    section {
+        margin: 0 1.5rem;
+
+        div table thead tr td{
+            margin: 0 1rem;
+            padding: 0 1rem;
+        }
+        div table tbody tr td{
+            margin: 0 1rem;
+            padding: 0 1rem;
+        }
+        div table tbody tr td:hover{
+            background-color: gray;
+            border-radius: 8px;
+        }
+    }
+}
+
+
+/* Practice stuff */
+.practice-grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: black;
+    padding: 2px;
+    border-radius: 10px;
+    margin: 10px;
+    section {
+        background-color: white;
+        padding: 1rem;
+        margin: 2px 2px ;
+        border-radius: 10px;
+
+
+        table tbody tr td{
+            margin: 0 1rem;
+            padding: 0 1rem;
+        }
+        table thead tr td{
+            margin: 0 1rem;
+            padding: 0 1rem;
+        }
+        table tbody tr td:hover{
+            
+            background-color: gray;
+            border-radius: 8px;
+            box-shadow: 0 3px 5px #333;
+        }
+    }
+}
+
+#advantages{
+    li:hover{
+        background-color: rgb(44, 96, 23);
+        color: white;
+        transition: width 2s, height 2s, background-color 2s, rotate 2s, color 1s;
+    }
+}
+
+#about-us{
+    color:rgb(0, 0, 0);
+    text-align: center;
+    flex: auto;
+    padding: 2rem 0  ;
+}
+
+#your-favorite{
+    table{
+        padding: 1rem;
+    }
+    table:hover{
+        transform: rotateY('180deg');
+    }
+}
+
+#library-card{
+    input{
+        width: 450px;
+        padding: 5px 5px;
+        margin: 2px;
+        flex: 1;
+    }
+}
+
+img{    
+    width: 350px;
+    height: 500px;
+}
+
+
+
+
+
+.flip-book-container{
+    display: flex;
+    justify-content: center;
+}
+
+.book-flip{
+    background-color: transparent;
+    width: 700px;
+    height: 500px;
+    border: 1px solid rgb(255, 255, 255);
+    perspective: 1000px;
+    
+}
+
+.book-inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+
+.book-flip:hover .book-inner{
+    transform: rotateY(180deg);
+}
+
+.book-front, .book-inside{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+
+.book-front{
+    background-color: transparent;
+    color: black;
+}
+
+.book-inside{
+    background-color: black;
+    color: white;
+    transform: rotateY(180deg);
+}

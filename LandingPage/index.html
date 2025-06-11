@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div id="header">
+        <h1>BookHub</h1>
+
+        <!-- 
+        <h2>BookHub</h2>
+        <h3>BookHub</h3>
+        <h4>BookHub</h4>
+        <h5>BookHub</h5>
+        <h6>BookHub</h6> 
+        -->
+
+        <p>Track, Review, and Share your Reading Journey</p>
+    </div> 
+    <div>
+        <nav class="nav-bar">
+            <button>
+                Home
+            </button>
+            <button>
+                Books
+            </button>
+            <button>
+                Address
+            </button>
+            <button>
+                About Us
+            </button>
+        </nav>
+    </div>   
+    <main>
+        
+
+        <section id = "features" class = "section-container"> 
+            <h2>Why BookHub?</h2>
+            <div class="feature-card">
+                <h3>Track Your Library</h3>
+                <p>Keep all your books organized</p>
+            </div>
+        </section>
+
+        
+
+        <div class="grid-container">
+            
+        <section id="add-book" >
+            <h2>Add a Book</h2>
+            <form id="book-form" method="post">
+                <label for="title">Book Title:</label>
+                <input type="text" id = "title" required>
+                <input type="text" id="author" placeholder="Author" required>
+                <input type="date" name="publish-date" id="publish-date" required>
+                <input type="number" name="price" id="price" placeholder="Price">
+                <label for="genre" required>Genre: </label>
+                <select name="genre" id="genre" required>
+                    <option>-- please select a genre --</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="non-fiction">Non-Fiction</option>
+                    <option value="science-fiction">Science Fiction</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="science-fiction">Science Fiction</option>
+                    <option value="science">Science</option>
+                </select>
+                <input type="submit" value="Add book">
+            </form>
+        </section>
+        <section id="book-list">
+            <h2>Your Books</h2>
+            <div class="book-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Title
+                            </th>
+                            <td>Author</td>
+                            <td>Published Date</td>
+                            <td>Genre</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Clean Code</th>
+                            <td>Robert C. Martin</td>
+                            <td>Aug-1-2008</td>
+                            <td>Non-Fiction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+
+    <div class = "practice-grid-container">
+        <section id="advantages">
+            <h2>
+                Advantages of BookHub
+            </h2>
+            <ul>
+                <li>Awesome</li>
+                <li>Cool</li>
+                <li>Nice</li>
+                <li>Great</li>
+                <li>Best</li>
+                <li>Holy</li>
+            </ul>
+        </section>
+        <section id="rented-books">
+            <h2>
+                Rented Books
+            </h2>
+            <div class="book-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Title
+                            </th>
+                            <td>Author</td>
+                            <td>Published Date</td>
+                            <td>Genre</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Clean Code</th>
+                            <td>Robert C. Martin</td>
+                            <td>Aug-1-2008</td>
+                            <td>Non-Fiction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="fan-favorites">
+            <h2>
+                Fan Favorite Tiltes
+            </h2>
+            <div class="favorites-Container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <td>Author</td>
+                            <td>Genre</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Dawn of the Jedi: Into the Void</th>
+                            <td>Tim Lebbon</td>
+                            <td>Science Fiction</td>
+                        </tr>
+                        <tr>
+                            <th>To Kill a Mockingbird</th>
+                            <td>Harper Lee</td>
+                            <td>Fiction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="your-favorite">
+            <h2>
+                Your Favorite Books
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <td>Author</td>
+                        <td>date</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            H2O
+                        </th>
+                        <td>
+                            Virginia Bergin
+                        </td>
+                        <td>
+                            1-1-2018
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>
+                Add More Books to Your Favorite
+            </h3>
+            <form id="your-favorite" method="post">
+                <input type="text" id="title" placeholder="Title of the Book" required>
+                <input type="text" id="author" placeholder="author" required>
+                <input type="date" name="date" id="date">
+                <input type="submit" value="Add book">
+            </form>
+        </section>
+        <section id="library-card">
+            <h2>Get Free Digital Library Card</h2>
+            <form id="library-card" method="post">
+                <input type="text" id="first-name" placeholder="First Name" required>
+                <input type="text" id="Last-name" placeholder="Last Name" required>
+                <input type="email" name="library-card-email" id="library-card-email" placeholder="Email" required>
+                <input type="number" name="library-card-pnumber" id="library-card-pnumber" placeholder="Phone Number" required>
+                <input type="submit" value="Order Card">
+            </form>
+        </section>
+        <section id = "textbooks">
+            <h2>Find Your Text Book</h2>
+            <form method="get">
+                <input type="search" name="book-name" id="book-name" placeholder="Book search Name, Author and edition" required>
+                <input type="submit" value="search">
+            </form>
+        </section>
+    </div>
+
+
+    <div class="flip-book-container">
+        <div class="book-flip">
+            <div class="book-inner">
+                <div class="book-front">
+                    <img src="../front.jpeg" alt="front-img" >
+                </div>
+                <div class="book-inside">
+                    <img src="../inside.jpg" alt="inside-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <section id="about-us">
+            <h2>About Us</h2>
+            <p>
+                BookHub is a library website, with a powerful module, made compatible for most libraries and is free for any library,
+                <br>who are willing to adopt the system. We are an elven community located in Javaland, with the strong hope and wish 
+                <br>to help each and eveery library to have the most updated textbooks and trending books
+            </p>
+        </section>
+    
+
+    </main>
+</body>
+<footer style="text-align: center;">
+    <p>418 ElvenWoods 3rd street,<br> JavaLand 20204</p>
+    <small>Copyright © JavaElf 2025, creative commons</small>
+</footer>
+</html>

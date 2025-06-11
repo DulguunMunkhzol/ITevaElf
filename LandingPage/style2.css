@@ -1,0 +1,17 @@
+@media screen and (max-width:320px){
+    .grid-container{
+        grid-template-columns: 320px;
+        grid-template-rows: 400px 400px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .grid-container{
+        grid-template-columns: 320px;
+        grid-template-rows: 400px 400px;
+        
+    }    
+    #book-form{
+        max-width: 400px;
+    }
+}
