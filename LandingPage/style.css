@@ -69,7 +69,7 @@ body{
 
 .grid-container{
     display: grid;
-    grid-template-columns: 320px auto;
+    grid-template-columns: 320px auto auto;
 
     section {
         margin: 0 1.5rem;
@@ -89,6 +89,9 @@ body{
     }
 }
 
+.gold-star{
+    color: gold;
+}
 
 /* Practice stuff */
 .practice-grid-container{
@@ -204,4 +207,34 @@ img{
     background-color: black;
     color: white;
     transform: rotateY(180deg);
+}
+
+
+.modal{
+    display: none;
+    max-width: 400px;
+
+    #modal-close-button{
+        background-color: none;
+        color: red;
+        border: 0px;
+        padding: 3px;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+#statistics-container-table{
+    
+    td{
+        padding:10px;
+        margin: 10px;
+
+    }
+}
+
+#statistics-feature{
+    padding: 10px;
+    margin: 10px;
+    
 }

@@ -69,8 +69,14 @@
                     <option value="non-fiction">Non-Fiction</option>
                     <option value="science-fiction">Science Fiction</option>
                     <option value="fantasy">Fantasy</option>
-                    <option value="science-fiction">Science Fiction</option>
                     <option value="science">Science</option>
+                </select>
+                <select name = "rating" id="rating">
+                    <option value = "1">1 star</option>
+                    <option value = "2">2 star</option>
+                    <option value = "3">3 star</option>
+                    <option value = "4">4 star</option>
+                    <option value = "5">5 star</option>
                 </select>
                 <input type="submit" value="Add book">
             </form>
@@ -82,11 +88,12 @@
                     <thead>
                         <tr>
                             <th>
-                                Title
+                                <span onclick="sortByTitle()">Title</span>
                             </th>
-                            <td>Author</td>
+                            <td><span onclick="sortByAuthor()">Author</span></td>
                             <td>Published Date</td>
                             <td>Genre</td>
+                            <td><span onclick="sortRating()">Rating</span></td>
                             <td>Actions</td>
                         </tr>
                     </thead>
@@ -100,9 +107,60 @@
                     </tbody>
                 </table>
             </div>
+            <div id="statistics-feature">
+            <h2>
+                Here are Some Statistics About the Genre of Your Books
+            </h2>
+            <button onclick="statistics()">
+                Stats
+            </button>
+            <table id="statistics-container-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Fiction
+                        </th>
+                        <td>
+                            Non Fiction
+                        </td>
+                        <td>
+                            Science Fiction
+                        </td>
+                        <td>
+                            Fantasy
+                        </td>
+                        <td>
+                            Science
+                        </td>
+                        <td>
+                            None
+                        </td>
+                        <td>
+                            combined
+                        </td>
+                    <tr>
+                </thead>
+                <tbody id="statistics-container">
+                    
+                </tbody>
+            </table>
+        </div>
+            
         </section>
+        <section>
+            <h2>
+                Search For a book
+            </h2>
+            <input 
+                type="search" 
+                name="search" 
+                id="search" 
+                placeholder="type in title, author, or genre" 
+                onkeypress="()=> {handleKeyPress}">
+            <div id="search-results"></div>
+        </section>
+        
     </div>
-
 
     <div class = "practice-grid-container">
         <section id="advantages">
@@ -217,13 +275,6 @@
                 <input type="email" name="library-card-email" id="library-card-email" placeholder="Email" required>
                 <input type="number" name="library-card-pnumber" id="library-card-pnumber" placeholder="Phone Number" required>
                 <input type="submit" value="Order Card">
-            </form>
-        </section>
-        <section id = "textbooks">
-            <h2>Find Your Text Book</h2>
-            <form method="get">
-                <input type="search" name="book-name" id="book-name" placeholder="Book search Name, Author and edition" required>
-                <input type="submit" value="search">
             </form>
         </section>
     </div>
