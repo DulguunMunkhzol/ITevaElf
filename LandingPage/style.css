@@ -1,7 +1,16 @@
 *{
     margin:0;
     padding:0;
-    box-sizing: border-boxß;    
+    box-sizing: border-boxß;   
+    button{
+        border:0px;
+        padding: 5px;
+        border-radius:5px ;
+        background-color: rgb(201, 201, 201);
+    } 
+    button:hover{
+        background-color: aquamarine;
+    }
 }
 
 body{
@@ -97,7 +106,7 @@ body{
 .practice-grid-container{
     display: grid;
     grid-template-columns: auto auto auto;
-    background-color: black;
+    background-color: rgb(165, 187, 224);
     padding: 2px;
     border-radius: 10px;
     margin: 10px;
@@ -236,5 +245,8 @@ img{
 #statistics-feature{
     padding: 10px;
     margin: 10px;
-    
+
+}
+#myChart{
+    background-color: rgb(233, 233, 233);
 }

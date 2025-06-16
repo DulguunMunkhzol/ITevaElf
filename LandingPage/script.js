@@ -1,10 +1,21 @@
 //mutable Variable
 let books = [];
-let statisticsGenreCount =[0,0,0,0,0,0,0];
+let statisticsGenreCount =[0,0,0,0,0,0];
 let statisticName =[]
 
 let yourFavBooks=[]
+let rentedBooks=[]
+let statsChart = ''
 
+
+const barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145", 
+    "#f5e942"
+];
 //  DOM (Document Object Model) manipulation
 //constant or final Variable
 const bookForm = document.getElementById('book-form')
@@ -13,6 +24,9 @@ const search = document.getElementById('search');
 
 
 const statisticsConrainer = document.getElementById('statistics-container');
+
+
+
 
 
 bookForm.addEventListener('submit', function(e){
@@ -42,8 +56,6 @@ bookForm.addEventListener('submit', function(e){
     bookForm.reset();
     displayBooks();
 })
-
-
 
 
 function createStarRating(bookId, rating){
@@ -86,30 +98,14 @@ function displayBooks(){
         <td>${createStarRating(book.id,book.rating)}</td>
         <td><button onclick = "deleteBook(${book.id})">Delete</button></td>
         <td><button id="edit-modal" onclick="openModal(${book.id})">Edit</button></td> 
-        <div id="modal" class="modal">Edit Modal
-
-        <button onclick="closeModal()" id = "modal-close-button">X</button>
-
-        <form id="book-edit-modal">
-            <input type="text" id="title-edit" placeholder="Edit Title" required>
-            <input type="text" id="author-edit" placeholder="Edit Author" required>
-            <input type="date" id="publish-date-edit" placeholder="Edit Published Date" required>
-            <input type="number" id="price-edit" placeholder="Edit Price " required>
-            <select name="genre-edit" id="genre-edit">
-                <option>-- please select a genre --</option>
-                <option value="fiction">Fiction</option>
-                <option value="non-fiction">Non-Fiction</option>
-                <option value="science-fiction">Science Fiction</option>
-                <option value="fantasy">Fantasy</option>
-                <option value="science">Science</option>
-            </select>
-            <input type="submit" value="Edit Book">
-        </form>
-
-        </div>
+        
         `;
         bookContainer.appendChild(bookRow);
     })
+
+
+        
+    statistics()
 }
 
 function deleteBook(id){
@@ -118,40 +114,54 @@ function deleteBook(id){
     displayBooks();
 }
 
+let editId = 0
 
-function openModal(idEdited){
-    const modalEdit = document.getElementById('book-edit-modal')
 
+function openModal(id){
+    loadFromLocalStorage();
     document.getElementById("modal").style.display = "block";
+    editId = id
+    // alert(JSON.stringify(books.editId))
 
-    modalEdit.addEventListener('submit', function(e){
-        e.preventDefault();
+    // let newPlaceHolder = document.getElementById("title-edit")
+    // newPlaceHolder.placeholder = `not working`
 
-
-        const titleEdit = document.getElementById('title-edit').value
-        const authorEdit = document.getElementById('author-edit').value
-        const publishDateEdit = document.getElementById('publish-date-edit').value
-        const genreEdit = document.getElementById('genre-edit').value
-        const priceEdit = document.getElementById('price-edit').value
-
-        const bookEdit ={
-            id:idEdited,
-            title:titleEdit,
-            author:authorEdit,
-            publishDate:publishDateEdit,
-            genre:genreEdit,
-            price:priceEdit,
-            rating:rating,
-            dateAdded: new Date()
-        }
-        books = books.filter(book =>book.id !== id)
-        books.push(bookEdit)
-        saveToLocalStorage();
-        modalEdit.reset();
-        displayBooks()
-    })
 }
 
+const modalEdit = document.getElementById('book-edit-modal')
+
+modalEdit.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const titleEdit = document.getElementById('title-edit').value
+    const authorEdit = document.getElementById('author-edit').value
+    const publishDateEdit = document.getElementById('publish-date-edit').value
+    const genreEdit = document.getElementById('genre-edit').value
+    const priceEdit = document.getElementById('price-edit').value
+
+    const bookEdit ={
+        id:editId,
+        title:titleEdit,
+        author:authorEdit,
+        publishDate:publishDateEdit,
+        genre:genreEdit,
+        price:priceEdit,
+        rating:rating,
+        dateAdded: new Date()
+    }
+    alert(editId)
+    alert(JSON.stringify(bookEdit))
+
+    deleteBook(editId)
+    books.push(bookEdit)
+    saveToLocalStorage();
+    modalEdit.reset();
+    displayBooks()
+    document.getElementById("modal").style.display = "none";
+
+
+
+})
 
 
 function closeModal(){
@@ -214,9 +224,6 @@ search.addEventListener('keypress', function(e){
 const displayFilteredBooks =(filteredBooks)=>{
     const searchResults = document.getElementById('search-results');
     searchResults.innerHTML = '';
-    
-
-
 
     const searchList = document.createElement('ol');
 
@@ -265,7 +272,7 @@ function loadFromLocalStorage(){
 }
 
 
-
+let netCount = 0
 
 function statistics(){
     statisticsConrainer.innerHTML = ""
@@ -276,7 +283,6 @@ function statistics(){
     statisticName[3] = "fantasy"
     statisticName[4] = "science"
     statisticName[5] = "-- please select a genre --"
-    statisticName[6] = "combined"
 
     for(let count=0; count<books.length; count++){
         for(let countStatArr = 0; countStatArr<=7; countStatArr++)
@@ -288,24 +294,45 @@ function statistics(){
         }
         }
 
-        statisticsGenreCount[6] +=1
+        netCount +=1
     }
 
         
     for(let count = 0; count < statisticsGenreCount.length; count++){
-        statsString+= `<td>${((statisticsGenreCount[count]/statisticsGenreCount[6])*100).toFixed(2)}%</td>`
+        statsString+= `<td>${((statisticsGenreCount[count]/netCount)*100).toFixed(2)}%</td>`
     }
-
+       
     
 
     const statisticsCircle = document.createElement('tr');
     statisticsCircle.innerHTML = statsString
 
     statisticsConrainer.appendChild(statisticsCircle)
-    statisticsGenreCount =[0,0,0,0,0,0,0];
+    statisticsGenreCount =[0,0,0,0,0,0];
+    netCount =0
     
-    
+    statsChart = new Chart("myChart",{
+        type: "pie",
+        data:{
+            labels: statisticName,
+            datasets:[{
+                backgroundColor: barColors,
+                data:statisticsGenreCount
+            }]
+        },
+        options: {
+            title: {
+            display: true
+            }
+        }
+        })
+
+    chart.update();
+
 }
+
+
+
 
 const orderCard = document.getElementById("library-card")
 orderCard.addEventListener('submit', function(e){
@@ -314,9 +341,11 @@ orderCard.addEventListener('submit', function(e){
     alert('Free Library Card Will be sent to ' + document.getElementById('library-card-email').value)
 })
 
-const adFavorite = document.getElementById('your-faveorite')
+const adFavorite = document.getElementById('your-favorite')
 adFavorite.addEventListener('submit',function(e){
-    e.preventDefault();
+    e.preventDefault()
+    
+    alert('will be added')
     
 })
 

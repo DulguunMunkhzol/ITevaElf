@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,13 +109,33 @@
                     </tbody>
                 </table>
             </div>
+
+            <div id="modal" class="modal">Edit Modal
+
+        <button onclick="closeModal()" id = "modal-close-button">X</button>
+
+        <form id="book-edit-modal">
+            <input type="text" id="title-edit" placeholder="Edit Title" required>
+            <input type="text" id="author-edit" placeholder="Edit Author" required>
+            <input type="date" id="publish-date-edit" placeholder="Edit Published Date" required>
+            <input type="number" id="price-edit" placeholder="Edit Price " required>
+            <select name="genre-edit" id="genre-edit">
+                <option>-- please select a genre --</option>
+                <option value="fiction">Fiction</option>
+                <option value="non-fiction">Non-Fiction</option>
+                <option value="science-fiction">Science Fiction</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="science">Science</option>
+            </select>
+            <input type="submit" value="Edit Book">
+        </form>
+
+        </div>
+        
             <div id="statistics-feature">
             <h2>
                 Here are Some Statistics About the Genre of Your Books
             </h2>
-            <button onclick="statistics()">
-                Stats
-            </button>
             <table id="statistics-container-table">
                 <thead>
                     <tr>
@@ -145,6 +167,8 @@
                 </tbody>
             </table>
         </div>
+        
+        <canvas id="myChart"></canvas>
             
         </section>
         <section>
@@ -243,7 +267,7 @@
                         <td>date</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="your-favorite-books">
                     <tr>
                         <th>
                             H2O
@@ -261,9 +285,9 @@
                 Add More Books to Your Favorite
             </h3>
             <form id="your-favorite" method="post">
-                <input type="text" id="title" placeholder="Title of the Book" required>
-                <input type="text" id="author" placeholder="author" required>
-                <input type="date" name="date" id="date">
+                <input type="text" id="title-fav" placeholder="Title of the Book" required>
+                <input type="text" id="autho-fav" placeholder="author" required>
+                <input type="date" name="date" id="date-fav">
                 <input type="submit" value="Add book">
             </form>
         </section>
