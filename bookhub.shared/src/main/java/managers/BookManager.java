@@ -2,8 +2,10 @@ package managers;
 
 import entities.Book;
 import exceptions.BookNotFoundException;
+import repository.BookRepository;
 import utils.BookFileHandler;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -16,15 +18,27 @@ public class BookManager {
     private boolean currentUpdateTracker = false;
     private ExecutorService executorService;
 
-    { //basically does this first after constructing
-        executorService = Executors.newSingleThreadExecutor();
-        books = BookFileHandler.loadBooks();
-        executorService.submit(autoSaveRunnable()); //thread that keeps on goinf
+    private BookRepository bookRepository;
+
+//    { //basically does this first after constructing
+//        executorService = Executors.newSingleThreadExecutor();
+//        books = BookFileHandler.loadBooks();
+//        executorService.submit(autoSaveRunnable()); //thread that keeps on goinf
+//    }
+
+    public BookManager(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
+
+        this.books = this.bookRepository.findAll();
+
+        this.executorService = Executors.newSingleThreadExecutor();
+        this.executorService.submit(autoSaveRunnable());
+
     }
 
     public BookManager(){
-        this.books = new ArrayList<>();
     }
+
     public void addBook(
             String title,
             String author,
@@ -119,9 +133,20 @@ public class BookManager {
     }
     public List<Book> getBooksByGenre(String genre){
         return books.stream() //stream way to do loops.  // BASICALLY CONVERTS THE COLLECTION INTO STREAM OBJECT
-                .filter(book -> book.getGenre().equalsIgnoreCase(genre) ) //filters using lambda expression // Intermediary operations
+                .filter(book -> book.getGenre().equalsIgnoreCase(genre) )//filters using lambda expression // Intermediary operations
                 .toList();//terminal operator ->ends the stream
     } //rules: on lambda expressions make sure to add parenthesis on more than 2 objects
+
+//    public String bookGenreDistinctString(){
+//        String GenreString ="";
+//        getAllBooks();
+//
+//        for( Book book:books){
+//            book.displayBook();
+//        }
+//        return GenreString;
+//    }
+
     public Map<String, Long> getBookGenreStatistics(){
         return books.stream()
                 .collect(Collectors.groupingBy(Book::getGenre, Collectors.counting()));
@@ -151,7 +176,9 @@ public class BookManager {
                 filter(b->b.getId() == bookId).
                 findFirst()
                 .orElseThrow(()-> new BookNotFoundException("Book was not found"));
+
         book.setRating(rating);
+
         //create a separate index array to use as an index locator for
         currentUpdateTracker = true;
 
@@ -161,9 +188,11 @@ public class BookManager {
 
     public boolean deleteBookById(int bookId){
         try{
-            return books.removeIf(b -> b.getId() == bookId);
-        }finally {
-            currentUpdateTracker = true;
+            bookRepository.deleteBookByID(bookId);
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occured while deleting");
+            return false;
         }
     }
 
@@ -171,7 +200,20 @@ public class BookManager {
         Runnable runnable = () -> {
             while(true){
                 if(currentUpdateTracker){
-                    BookFileHandler.saveBooks(books);
+//                    BookFileHandler.saveBooks(books);
+                    books.forEach(book ->{
+                        if(book.getId() <= 0){
+                            bookRepository.save(book);
+                            System.out.println("saved");
+                        } else if(!book.getTitle().isBlank()){
+                            try {
+                                bookRepository.updateBook(book);
+                            } catch (SQLException e) {
+                                System.err.println("error occured when update book with id:" +
+                                        book.getId() + " Error Messege" + e.getMessage());
+                            }
+                        }
+                    });
                     currentUpdateTracker =false;
                 }
                 try {
@@ -183,5 +225,9 @@ public class BookManager {
             }
         };
         return runnable;
+    }
+    public void shutDownAutoSave(){
+        executorService.shutdown();
+        System.out.println("Auto Save Thread Shutting Down! ");
     }
 }

@@ -19,7 +19,7 @@ public class ReviewManager {
         }
         return null;
     }
-    public static void addReview(Book book,
+    public static void addRe15view(Book book,
                                  String username,
                                  String comment,
                                  byte rating){

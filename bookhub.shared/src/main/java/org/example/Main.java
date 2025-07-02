@@ -2,6 +2,7 @@ package org.example;
 
 import entities.Book;
 import managers.BookManager;
+import repository.BookRepository;
 import ui.BookHubConsole;
 import utils.BookFileHandler;
 
@@ -16,9 +17,7 @@ public class Main {
     public static void main(String[] args) {//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
 //
-//        Scanner scanner = new Scanner(System.in);
-//
-//        BookManager bookManager = new BookManager();
+        Scanner scanner = new Scanner(System.in);
 //
 //        bookManager.addBook("Clean Code","Martin Luther King", LocalDate.of(2002,2,2),"Non-Fiction");
 //        bookManager.addBook("Clean Code","Martin Luther King", LocalDate.of(2002,2,2),"Non-Fiction");
@@ -39,11 +38,11 @@ public class Main {
 //                "non-fiction",
 //                (byte)5);
 //
-//        book1.setTitle("Clean Code");
-//        book1.setAuthor("Robert C. Martin");
+//        book1.setTitle("");
+//        book1.setAuthor(" C. Martin");
 //        book1.setPublishDate(LocalDate.of(2008,8,1));
-//        book1.setGenre("Non-Fiction");
-//        book1.setPrice(59.99f);
+//        book1.setGenre("Fiction");
+//        book1.setPrice(90.5f);
 //        book1.setRating((byte)4);
 
 //        book2.setTitle("The Clean Coder:" +
@@ -114,10 +113,25 @@ public class Main {
 //        bookManager.updateRating(3,(byte)4);
 //
 //        System.out.println(bookManager.getBookGenreStatistics());
+//
+        BookRepository bookRepository = new BookRepository();
+        BookManager bookManager = new BookManager(bookRepository);
 
-        BookHubConsole console =new BookHubConsole();
+        BookHubConsole console =new BookHubConsole(bookManager, scanner);
+
+//        bookRepository.save(book1);
         console.start();
 
+//
+//        Book book1 = new Book(
+//                "Doom: Endgame",
+//                "Dafydd ab Hugh",
+//                LocalDate.of(2014,8,23),
+//                72.50f,
+//                "Science-fiction",
+//                (byte) 4
+//        );
+//        book1.setId(3);
 
 //        List<Book> books = new ArrayList<Book>();
 //        books.add(new Book(

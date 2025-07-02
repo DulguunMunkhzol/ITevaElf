@@ -14,17 +14,6 @@ public class BookManagerTests {
     @BeforeEach
     public void setUp(){
         bookManager = new BookManager();
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,11,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,11,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-        bookManager.addBook( "test123","author123", LocalDate.of(1233,2,12),"Programming",(byte)4,49.99f);
-
     }
 
     @AfterEach
@@ -35,19 +24,28 @@ public class BookManagerTests {
     @Test
     @DisplayName("Should give acurate size of array when tested!")
     void testGetAllBooksSuccessTest(){
-        assertEquals(10, bookManager.getAllBooks().size());
+        assertEquals(4, bookManager.getAllBooks().size());
     }
 
     @Test
     @DisplayName("should give accurate size of array")
     void testGetAllBooks(){
-        assertEquals(10,bookManager.getAllBooks().size());
+        assertEquals(4,bookManager.getAllBooks().size());
     }
+
+
+    @Test
+    @DisplayName("should check if the ID matches the correct amount")
+    void testID(){
+        Book bookSize = bookManager.getAllBooks().get(bookManager.getAllBooks().size()-1);
+        assertEquals(4,bookSize.getId());
+    }
+
 
     @Test
     @DisplayName("Should update the book in the array")
     void textUpdateBookShouldUpdateTheBook(){
-        Book oldBook = bookManager.getBookById(13);
+        Book oldBook = bookManager.getBookById(3);
 
         Book expectedBook = new Book(oldBook.getId(), oldBook.getDateAdded());
 
@@ -59,11 +57,10 @@ public class BookManagerTests {
 
 
         assertTrue(bookManager.updateBook(expectedBook));
-        Book updateBook = bookManager.getBookById(13);
+        Book updateBook = bookManager.getBookById(3);
 
         assertEquals(expectedBook.getTitle(), updateBook.getTitle());
         assertEquals(expectedBook.getAuthor(), updateBook.getAuthor());
     }
-
 
 }
