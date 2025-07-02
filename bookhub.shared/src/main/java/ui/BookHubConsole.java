@@ -61,6 +61,7 @@ public class BookHubConsole {
                     break;
                 case 11:
                     System.out.println("Goodbye!");
+                    bookManager.shutDownAutoSave();
                     System.out.println("AutoSave Shutdown!");
 
                     scanner.close();
